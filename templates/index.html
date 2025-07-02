@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação de e-mails</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Classificação de Emails</h1>
+        <p>Automatize a classificação e resposta de emails corporativos com IA</p>
+    </header>
+
+    <main class="content">
+        <section class="box entrada">
+            <h2>Entrada de Email</h2>
+            <p>Faça upload de um arquivo ou cole o texto do email diretamente</p>
+            <form action="/classify" method="post" enctype="multipart/form-data">
+                <label for="email_content">Texto do Email:</label>
+                <textarea id="email_content" name="email_content" rows="10" required></textarea>
+
+                <hr>
+
+                <label for="file_upload">Ou envie um arquivo .txt ou .pdf:</label>
+                <input type="file" id="file_upload" name="file_upload" accept=".txt,.pdf">
+
+
+                <div class="button-group">
+                    <button class="classify-button" type="submit">Classificar Email</button>
+                    <button class="clear-button" type="reset">Limpar</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="box resultado">
+            {% if resposta %}
+                <div class="aguardando">
+                    <h2>Resultado da Classificação</h2>
+                    <p>Classificação do email analisado pela IA</p>
+                    <div class="classificacao">
+                         classificacao 
+                    </div>
+                    <h2>Resposta Sugerida</h2>
+                    <p>Resposta gerada automaticamente pela IA</p>
+                    <div class="ai-response">
+                        <p> {{ resposta }}  </p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="aguardando">
+                    <h2>Aguardando Classificação</h2>
+                    <p>Insira um email ou faça upload de um arquivo para começar a análise</p>
+                    <div class="classificacao">
+                        Improdutivo
+                    </div>
+                </div>
+            {% endif %}
+            <div class="como-funciona">
+                <p><strong>Como funciona:</strong> O sistema utiliza modelos de IA para analisar o conteúdo do email e sugerir uma classificação adequada (Produtivo ou Improdutivo), além de gerar respostas automáticas.</p>  
+            </div>
+        </section>
+    </main>
+</body>
+</html>
