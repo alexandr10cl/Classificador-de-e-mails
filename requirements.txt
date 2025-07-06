@@ -1,2 +1,4 @@
-pip install python-dotenv
-pip install -q -U openai
+Flask
+python-dotenv
+google-generativeai
+PyPDF2

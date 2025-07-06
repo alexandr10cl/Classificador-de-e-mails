@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classificação de e-mails</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -18,7 +19,7 @@
             <p>Faça upload de um arquivo ou cole o texto do email diretamente</p>
             <form action="/classify" method="post" enctype="multipart/form-data">
                 <label for="email_content">Texto do Email:</label>
-                <textarea id="email_content" name="email_content" rows="10" required></textarea>
+                <textarea id="email_content" name="email_content" rows="10"></textarea>
 
                 <hr>
 
@@ -39,21 +40,22 @@
                     <h2>Resultado da Classificação</h2>
                     <p>Classificação do email analisado pela IA</p>
                     <div class="classificacao">
-                         classificacao 
+                         {{ tipo }} 
                     </div>
                     <h2>Resposta Sugerida</h2>
                     <p>Resposta gerada automaticamente pela IA</p>
                     <div class="ai-response">
-                        <p> {{ resposta }}  </p>
+                        <p id="resposta-ia"> {{ resposta }}  </p>
                     </div>
+                    <button class="copybutton" onclick="copiarResposta()">
+                        <span class="material-symbols-outlined">content_copy</span>
+                        Copiar Resposta
+                    </button>
                 </div>
             {% else %}
                 <div class="aguardando">
                     <h2>Aguardando Classificação</h2>
                     <p>Insira um email ou faça upload de um arquivo para começar a análise</p>
-                    <div class="classificacao">
-                        Improdutivo
-                    </div>
                 </div>
             {% endif %}
             <div class="como-funciona">
@@ -62,4 +64,14 @@
         </section>
     </main>
 </body>
+<script>
+    function copiarResposta() {
+        const resposta = document.getElementById('resposta-ia').innerText;
+        navigator.clipboard.writeText(resposta).then(() => {
+            alert('Resposta copiada para a área de transferência!');
+        }).catch(err => {
+            console.error('Erro ao copiar resposta: ', err);
+        });
+    }
+</script>
 </html>
